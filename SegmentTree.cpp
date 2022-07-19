@@ -2,8 +2,8 @@ struct SegmentTree
 {
 	#define ls p << 1
 	#define rs ls | 1
-	int sum[100066 * 16];
-	int w[100066 * 16];
+	int sum[100066 * 4];
+	int w[100066 * 4];
 
 	void build(int p, int l, int r) {
 		if (l == r) {
@@ -16,6 +16,10 @@ struct SegmentTree
 		build(rs, mid + 1, r);
 		sum[p] = sum[ls] + sum[rs];
 		w[p] = w[ls] + w[rs];
+	}
+
+	void pushup(int p) {
+
 	}
 
 	void pushdown(int p) {
@@ -31,8 +35,7 @@ struct SegmentTree
 		int mid = (l + r) >> 1;
 		if (aim <= mid) upd(ls, l, mid, aim);
 		else upd(rs, mid + 1, r, aim);
-		sum[p] = sum[ls] + sum[rs];
-		w[p] = w[ls] + w[rs];
+		pushup(p);
 	}
 
 	int ask_sum(int p, int l, int r, int w) {
